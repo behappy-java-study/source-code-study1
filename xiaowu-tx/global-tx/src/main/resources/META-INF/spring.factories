@@ -1,0 +1,6 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.xiaowu.txmanager.aspect.XwTransactionAspect,\
+  org.xiaowu.txmanager.aspect.XwDataSourceAspect,\
+  org.xiaowu.txmanager.intercept.WebAppConfig,\
+  org.xiaowu.txmanager.netty.NettyClient,\
+  org.xiaowu.txmanager.transactional.XwTransactionManager
