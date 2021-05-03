@@ -1,7 +1,5 @@
-package org.xiaowu.xiaowu.spring.xiaowu.config;
+package org.xiaowu.xiaowu.spring.spring;
 
-import org.xiaowu.xiaowu.spring.spring.BeanPostProcessor;
-import org.xiaowu.xiaowu.spring.spring.Component;
 import org.xiaowu.xiaowu.spring.xiaowu.service.UserService;
 
 import java.lang.reflect.InvocationHandler;
@@ -10,7 +8,6 @@ import java.lang.reflect.Proxy;
 
 /**
  * @author 小五
- * @description: TODO
  * @date 2021/4/18 21:24
  */
 @Component
@@ -30,7 +27,6 @@ public class BeanPostProcessorImpl implements BeanPostProcessor {
             Object proxyInstance = Proxy.newProxyInstance(BeanPostProcessorImpl.class.getClassLoader(), bean.getClass().getInterfaces(), new InvocationHandler() {
                 @Override
                 public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-
                     return method.invoke(bean,args);
                 }
             });

@@ -1,4 +1,4 @@
-package org.xiaowu.xiaowu.spring.xiaowu.util;
+package org.xiaowu.xiaowu.spring.spring.util;
 
 import cn.hutool.core.util.StrUtil;
 

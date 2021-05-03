@@ -2,21 +2,17 @@ package org.xiaowu.xiaowu.spring.xiaowu.service;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.xiaowu.xiaowu.spring.spring.Component;
-import org.xiaowu.xiaowu.spring.spring.InitializingBean;
-import org.xiaowu.xiaowu.spring.spring.Mode;
-import org.xiaowu.xiaowu.spring.spring.Scope;
+import org.xiaowu.xiaowu.spring.spring.*;
 
 /**
  * @author 小五
- * @description: TODO
  * @date 2021/4/18 16:25
  */
 @Component
 @Scope(Mode.SINGLETON)
 public class UserService implements InitializingBean {
 
-//    @Autowired
+    @Autowired
     private OrderService orderService;
 
     @Setter

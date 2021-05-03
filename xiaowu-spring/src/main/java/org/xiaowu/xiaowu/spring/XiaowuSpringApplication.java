@@ -1,7 +1,5 @@
 package org.xiaowu.xiaowu.spring;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.xiaowu.xiaowu.spring.spring.AnnotationConfigApplicationContext;
 import org.xiaowu.xiaowu.spring.xiaowu.AppConfig;
 import org.xiaowu.xiaowu.spring.xiaowu.service.UserService;
@@ -19,7 +17,9 @@ public class XiaowuSpringApplication {
     public static void main(String[] args) throws Exception {
 //        ClassPathXmlApplicationContext classPathXmlApplicationContext = new ClassPathXmlApplicationContext("");
 //        AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
-//        SpringApplication.run(SourceCodeStudyApplication.class, args);
+//        ConfigurableApplicationContext context = SpringApplication.run(XiaowuSpringApplication.class, args);
+//        UserService userService = (UserService) context.getBean("userService");
+//        userService.test();
         AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
         UserService userService = (UserService) annotationConfigApplicationContext.getBean("userService");
         userService.test();

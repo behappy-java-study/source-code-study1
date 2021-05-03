@@ -10,5 +10,4 @@ import java.lang.annotation.*;
 @Documented
 public @interface Scope {
     Mode value() default Mode.SINGLETON;
-
 }

@@ -1,7 +1,7 @@
 package org.xiaowu.xiaowu.spring.spring;
 
 import cn.hutool.core.util.StrUtil;
-import org.xiaowu.xiaowu.spring.xiaowu.util.RecursiveFileUtils;
+import org.xiaowu.xiaowu.spring.spring.util.RecursiveFileUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -53,7 +53,7 @@ public class AnnotationConfigApplicationContext {
                 if (aClass.isAnnotationPresent(Component.class)) {
                     // 如果BeanPostProcessor与aClass表示的类或接口相同，或者是参数aClass表示的类或接口的父类，则返回true。
                     if (BeanPostProcessor.class.isAssignableFrom(aClass)){
-                        // todo 此创建BeanPostProcessor的方法不严谨
+                        // todo 此创建BeanPostProcessor的方法不严谨,待改善
                         BeanPostProcessor beanPostProcessor = (BeanPostProcessor) aClass.getDeclaredConstructor().newInstance();
                         beanPostProcessors.add(beanPostProcessor);
                     }
@@ -89,9 +89,11 @@ public class AnnotationConfigApplicationContext {
 
     private Object createBean(String beanName,BeanDefinition beanDefinition) {
         try {
+            // 实例化
             Class clazz = beanDefinition.getClazz();
             Object newInstance = clazz.getDeclaredConstructor().newInstance();
-            // todo 遍历当前bean的所有field,并判断是byname还是bytype
+            // 属性填充
+            // todo 遍历当前bean的所有依赖对象,并判断是byname还是bytype等,这里先基于byname
             for (Field declaredField : clazz.getDeclaredFields()) {
                 if (declaredField.isAnnotationPresent(Autowired.class)) {
                     Object bean = getBean(declaredField.getName());
@@ -102,7 +104,7 @@ public class AnnotationConfigApplicationContext {
                     declaredField.set(newInstance, bean);
                 }
             }
-
+            // todo 一堆Aware接口方法
             // 初始化bean之前
             for (BeanPostProcessor beanPostProcessor : beanPostProcessors) {
                 beanPostProcessor.postProcessBeforeInitialization(newInstance,beanName);
@@ -126,7 +128,8 @@ public class AnnotationConfigApplicationContext {
         BeanDefinition beanDefinition = beanDefinitionMap.get(beanName);
         if (beanDefinition != null) {
             if (beanDefinition.getScope() == Mode.SINGLETON) {
-                return singleTonMap.get(beanName);
+                Object bean = singleTonMap.get(beanName);
+                return Optional.ofNullable(bean).isPresent()?bean:createBean(beanName,beanDefinition);
             } else {
                 return createBean(beanName,beanDefinition);
             }
